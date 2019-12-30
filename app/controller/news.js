@@ -3,6 +3,9 @@ const  { Controller } = require("egg") ;
 class NewsController extends Controller{
     async index(){
         let {ctx} = this
+        let news1 = await this.ctx.service.news.fetch()
+        console.log()
+        console.log('news1',news1)
         let news = [
             {
                 title:'baidu',
