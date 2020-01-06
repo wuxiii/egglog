@@ -6,7 +6,7 @@ class BaseController extends Controller {
   success(data) {
     this.ctx.body = {
       code: '1',
-      data: { data },
+      data,
     };
   }
   error(error) {

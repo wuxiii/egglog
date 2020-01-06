@@ -9,6 +9,8 @@ module.exports = app => {
   router.get('/news', controller.news.index);
 
   router.post('/api/users/signup', controller.users.signup);
-  // router.get('/api/user/signin', controller.users.signin);
-  // router.get('/api/user/signout', controller.users.signout);
+  router.post('/api/users/signin', controller.users.signin);
+  router.get('/api/users/signout', controller.users.signout);
+
+  router.resources('categories', '/api/categories', controller.categories);
 };
