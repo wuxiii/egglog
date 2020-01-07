@@ -3,19 +3,9 @@
 const BaseController = require('./base');
 module.exports = class Categories extends BaseController {
   async index() {
-    const { ctx } = this;
-    let { pageNum = 1, pageSize = 5, keyword } = ctx.request.query;
-    pageNum = isNaN(pageNum) ? 1 : parseInt(pageNum);
-    pageSize = isNaN(pageSize) ? 5 : parseInt(pageSize);
-    const query = {};
-    if (keyword) {
-      query.name = new RegExp(keyword);
-    }
     try {
-      const categorieslist = await ctx.model.Category.find(query)
-        .skip((pageNum - 1) * pageSize)
-        .limit(pageSize);
-      this.success({ categorieslist });
+      const itmes = await this.getPager('Category', [ 'name' ]);
+      this.success({ itmes });
     } catch (error) {
       this.error(error);
     }
@@ -35,6 +25,29 @@ module.exports = class Categories extends BaseController {
       }
     } catch (err) {
       this.error(err);
+    }
+  }
+
+  async update() {
+    const { ctx } = this;
+    const id = ctx.params.id;
+    const category = ctx.request.body;
+    try {
+      await ctx.model.Category.findByIdAndUpdate(id, category);
+      this.success('更新成功 ');
+    } catch (err) {
+      this.error(err);
+    }
+  }
+
+  async destroy() {
+    const { ctx } = this;
+    const id = ctx.params.id;
+    try {
+      await ctx.model.Category.findByIdAndDelete(id);
+      this.success('删除成功');
+    } catch (error) {
+      this.error(error);
     }
   }
 

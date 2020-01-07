@@ -13,4 +13,5 @@ module.exports = app => {
   router.get('/api/users/signout', controller.users.signout);
 
   router.resources('categories', '/api/categories', controller.categories);
+  router.resources('articles', '/api/articles', controller.articles);
 };
