@@ -4,8 +4,8 @@ const BaseController = require('./base');
 module.exports = class Categories extends BaseController {
   async index() {
     try {
-      const itmes = await this.getPager('Category', [ 'name' ]);
-      this.success({ itmes });
+      await this.getPager('Category', [ 'name' ]);
+      // this.success({ itmes });
     } catch (error) {
       this.error(error);
     }

@@ -14,4 +14,8 @@ module.exports = app => {
 
   router.resources('categories', '/api/categories', controller.categories);
   router.resources('articles', '/api/articles', controller.articles);
+
+  router.get('/api/articles/pv/:id', controller.articles.addPV);
+  router.post('/api/articles/comment/:id', controller.articles.addComment);
+
 };

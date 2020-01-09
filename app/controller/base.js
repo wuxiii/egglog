@@ -13,12 +13,20 @@ class BaseController extends Controller {
       query.$or = fields.map(field => ({ [field]: new RegExp(keyword) }));
     }
     console.log(query);
+    const total = await ctx.model[modelName].count(query);
     const items = await ctx.model[modelName]
       .find(query)
       .skip((pageNum - 1) * pageSize)
       .limit(pageSize);
     console.log(items);
-    return items;
+    this.success({
+      pageNum,
+      pageSize,
+      total,
+      pageCount: Math.ceil(total / pageSize),
+      items,
+    });
+    // return items;
   }
 
   get user() {
